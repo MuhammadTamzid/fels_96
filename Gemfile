@@ -15,6 +15,7 @@ gem "sidekiq"
 gem "letter_opener", group: :development
 gem "redis-rails"
 gem "draper", "~> 1.3"
+gem "active_model_serializers"
 gem "bcrypt",                  "3.1.7"
 gem "faker",                   "1.4.2"
 gem "carrierwave",             "0.10.0"
