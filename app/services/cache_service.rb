@@ -30,7 +30,9 @@ class CacheService
   def delete_word_from_cache
     words = JSON.parse $redis.get("words")
 
-    words.delete_if {|word| word["id"] == @word.id}
+    # words.delete_if {|word| word["id"] == @word.id}
+
+    words.delete_if {|word| word["category_name"] == "cat1"}
 
     $redis.set "words", words.to_json
   end
