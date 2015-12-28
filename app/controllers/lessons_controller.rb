@@ -9,7 +9,7 @@ class LessonsController < ApplicationController
     @lesson.user = current_user
     if @lesson.save
       flash[:success] = t "lesson_started"
-      @lesson.create_activity :create, owner: current_user
+      LessonActivity.new(@lesson).create
       redirect_to edit_lesson_path @lesson
     else
       render :new
@@ -22,7 +22,7 @@ class LessonsController < ApplicationController
   def update
     if @lesson.update_attributes lesson_params
       flash[:success] = t "lesson_submitted"
-      @lesson.create_activity :update, owner: current_user
+      LessonActivity.new(@lesson).update
       redirect_to lesson_path @lesson
     else
       render :edit
