@@ -4,7 +4,10 @@ class Lesson < ActiveRecord::Base
   belongs_to :category
   has_many :lesson_words
 
+  validate :dates_check, :on :update
+
   before_create :init_words
+  #before_update :dates_check
   before_update :total_result
 
   accepts_nested_attributes_for :lesson_words
@@ -33,4 +36,12 @@ class Lesson < ActiveRecord::Base
     lesson_words.select{|lesson_word| lesson_word.word_answer.correct? unless
       lesson_word.word_answer.nil?}.count
   end
+
+  def dates_check
+    if self.lesson_words.map {|attribute| attribute[:word_answer_id].blank?}
+      errors.add(:password, "cannot be blank")
+    end
+  end
 end
+
+#map{|attribute| attribute[:word_answer_id].blank?}
